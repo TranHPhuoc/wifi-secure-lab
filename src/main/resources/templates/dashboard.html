@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wi-Fi Secure Lab</title>
+    <link rel="stylesheet"
+          href="/css/style.css">
+</head>
+<body>
+<main class="container">
+    <header>
+        <p class="eyebrow">NETWORK SECURITY PROJECT</p>
+        <h1>Wi-Fi Secure Lab</h1>
+        <p>
+            Mô phỏng WPA3-SAE và EAP/RADIUS
+            phục vụ học tập.
+        </p>
+        <span class="badge">SIMULATION MODE</span>
+    </header>
+
+    <section class="grid">
+        <article class="card">
+            <h2>WPA3-SAE Lab</h2>
+            <p>
+                Minh họa luồng xác thực Wi-Fi
+                dựa trên SAE.
+            </p>
+
+            <form action="/simulate" method="post">
+                <input type="hidden"
+                       name="protocol" value="SAE">
+
+                <label for="sae-scenario">
+                    Kịch bản
+                </label>
+                <select id="sae-scenario" name="scenario">
+                    <option value="SUCCESS">
+                        Mô phỏng thành công
+                    </option>
+                    <option value="FAILURE">
+                        Mô phỏng thất bại
+                    </option>
+                </select>
+
+                <button type="submit">
+                    Chạy mô phỏng SAE
+                </button>
+            </form>
+        </article>
+
+        <article class="card">
+            <h2>EAP/RADIUS Lab</h2>
+            <p>
+                Minh họa luồng Client, Authenticator
+                và RADIUS.
+            </p>
+
+            <form action="/simulate" method="post">
+                <input type="hidden"
+                       name="protocol" value="EAP">
+
+                <label for="eap-scenario">
+                    Kịch bản
+                </label>
+                <select id="eap-scenario" name="scenario">
+                    <option value="SUCCESS">
+                        Mô phỏng Access-Accept
+                    </option>
+                    <option value="FAILURE">
+                        Mô phỏng Access-Reject
+                    </option>
+                </select>
+
+                <button type="submit">
+                    Chạy mô phỏng EAP
+                </button>
+            </form>
+        </article>
+    </section>
+
+</main>
+</body>
+</html>

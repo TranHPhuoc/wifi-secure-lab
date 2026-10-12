@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulation Lab | Wi-Fi Secure Lab</title>
+<link rel="stylesheet" th:href="@{/css/result.css}">
+    
+</head>
+<script th:src="@{/js/result.js}" defer></script>
+<body>
+<main class="container">
+    <div class="eyebrow">Network Security · Interactive Lab</div>
+
+    <h1 th:text="${result.protocol}">WPA3-SAE</h1>
+    <p class="muted">
+        Quan sát từng sự kiện và tìm hiểu ý nghĩa bảo mật của luồng mô phỏng.
+    </p>
+    <span class="badge">SIMULATION MODE</span>
+
+    <section class="panel">
+        <div class="result-banner"
+             th:classappend="${result.success} ? ' success' : ' failure'">
+            <div class="result-icon"
+                 th:text="${result.success} ? '✓' : '✕'">✓</div>
+            <div>
+                <h2>Kết quả kịch bản</h2>
+                <p th:text="${result.summary}">Simulation result</p>
+                <span class="status"
+                      th:classappend="${result.success} ? ' status-success' : ' status-failed'"
+                      th:text="${result.success} ? 'SIMULATED SUCCESS' : 'SIMULATED FAILURE'">
+                    SIMULATION
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel">
+        <h2>Trình phát giao thức</h2>
+        <p class="muted">
+            Chuyển từng bước để xem bên tham gia, nội dung và giải thích kỹ thuật.
+        </p>
+
+        <div class="progress-row">
+            <span id="progressLabel">Bước 1</span>
+            <span id="progressCount">1 / 1</span>
+        </div>
+        <div class="progress-track"
+             role="progressbar"
+             aria-label="Tiến độ mô phỏng"
+             aria-valuemin="0"
+             aria-valuemax="100"
+             aria-valuenow="0"
+             id="progressBar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="actors" aria-label="Các thành phần giao thức">
+            <div class="actor" id="actorClient">
+                <span class="actor-icon">💻</span>
+                <span class="actor-name" id="leftActorName">Client</span>
+                <span class="actor-role">Thiết bị yêu cầu truy cập</span>
+            </div>
+
+            <div class="exchange" aria-hidden="true">⇄</div>
+
+            <div class="actor" id="actorServer">
+                <span class="actor-icon">📡</span>
+                <span class="actor-name" id="rightActorName">Access Point</span>
+                <span class="actor-role" id="rightActorRole">Điểm truy cập</span>
+            </div>
+        </div>
+
+        <article class="step-card"
+                 th:each="event, stat : ${result.events}"
+                 th:attr="data-step=${event.step},
+                          data-actor=${event.actor},
+                          data-status=${event.status}"
+                 th:hidden="${!stat.first}"
+                 aria-live="polite">
+
+            <div class="step-meta">
+                <span class="step-number"
+                      th:text="'BƯỚC ' + ${event.step}">
+                    BƯỚC 1
+                </span>
+
+                <span class="status"
+                      th:classappend="${' status-' + #strings.toLowerCase(event.status)}"
+                      th:text="${event.status}">
+                    INFO
+                </span>
+            </div>
+
+            <h2 style="margin-top: 18px"
+                th:text="${event.message}">
+                Protocol message
+            </h2>
+
+            <p class="muted"
+               th:text="${event.actor}">
+                Actor
+            </p>
+
+            <div class="detail-grid">
+                <div class="detail">
+                    <h3>Ý nghĩa kỹ thuật</h3>
+                    <p th:text="${event.explanation}">
+                        Technical explanation
+                    </p>
+                </div>
+
+                <div class="detail">
+                    <h3>Góc nhìn bảo mật</h3>
+                    <p th:text="${event.securityNote}">
+                        Security explanation
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        <div class="controls">
+            <button type="button" id="previousButton">← Trước</button>
+            <button type="button" class="primary" id="nextButton">Tiếp theo →</button>
+            <button type="button" id="playButton">▶ Chạy tự động</button>
+            <button type="button" id="pauseButton" disabled>Ⅱ Tạm dừng</button>
+            <button type="button" id="restartButton">↻ Chạy lại</button>
+        </div>
+
+        <p class="muted" id="playbackStatus" aria-live="polite">
+            Sẵn sàng bắt đầu.
+        </p>
+    </section>
+
+    <section class="panel">
+        <h2>Toàn bộ nhật ký</h2>
+        <p class="muted">
+            Chọn một sự kiện bất kỳ để chuyển thẳng đến bước đó.
+        </p>
+
+        <div class="event-list">
+            <button type="button"
+                    class="event-item"
+                    th:each="event, stat : ${result.events}"
+                    th:attr="data-index=${stat.index}"
+                    th:classappend="${stat.first} ? ' active' : ''">
+
+                <span class="event-index"
+                      th:text="${event.step}">1</span>
+
+                <span class="event-copy">
+                    <strong th:text="${event.message}">Message</strong>
+                    <small th:text="${event.actor}">Actor</small>
+                </span>
+
+                <span class="status"
+                      th:classappend="${' status-' + #strings.toLowerCase(event.status)}"
+                      th:text="${event.status}">INFO</span>
+            </button>
+        </div>
+    </section>
+
+
+    <div class="footer-actions">
+        <a class="link-button" href="/">← Quay về Dashboard</a>
+    </div>
+</main>
+
+
+</body>
+</html>

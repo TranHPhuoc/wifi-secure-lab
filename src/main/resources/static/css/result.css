@@ -1,0 +1,309 @@
+        :root {
+            color-scheme: dark;
+            --bg: #0b1220;
+            --panel: #141f32;
+            --border: #293950;
+            --text: #e6edf8;
+            --muted: #a5b4ca;
+            --cyan: #22d3ee;
+            --blue: #0794d2;
+            --green: #4ade80;
+            --red: #fb7185;
+            --yellow: #fbbf24;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            line-height: 1.65;
+        }
+
+        .container {
+            width: min(1120px, calc(100% - 32px));
+            margin: 40px auto;
+        }
+
+        .eyebrow {
+            color: var(--cyan);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: clamp(30px, 5vw, 48px);
+            line-height: 1.15;
+            margin: 10px 0;
+        }
+
+        h2 { font-size: 21px; margin-top: 0; }
+        h3 { font-size: 17px; }
+
+        .muted { color: var(--muted); }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--cyan);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 22px;
+        }
+
+        .result-banner {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .result-icon {
+            font-size: 30px;
+            line-height: 1.2;
+        }
+
+        .result-banner.success .result-icon { color: var(--green); }
+        .result-banner.failure .result-icon { color: var(--red); }
+
+        .progress-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 7px;
+            background: #26344a;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 0;
+            height: 100%;
+            background: var(--cyan);
+            transition: width .25s ease;
+        }
+
+        .actors {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 14px;
+            align-items: center;
+            margin: 24px 0;
+        }
+
+        .actor {
+            min-height: 100px;
+            border: 1px solid var(--border);
+            background: #0e1829;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 14px;
+            transition: border-color .2s, background .2s;
+        }
+
+        .actor.active {
+            border-color: var(--cyan);
+            background: #123044;
+            box-shadow: 0 0 0 1px #22d3ee22;
+        }
+
+        .actor-icon { font-size: 26px; }
+        .actor-name { font-weight: 700; }
+        .actor-role { color: var(--muted); font-size: 12px; }
+        .exchange { color: var(--cyan); font-size: 24px; }
+
+        .step-card {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 22px;
+            background: #0e1829;
+        }
+
+        .step-meta {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .step-number {
+            color: var(--cyan);
+            font-weight: 800;
+            font-size: 13px;
+        }
+
+        .status {
+            display: inline-block;
+            border-radius: 6px;
+            padding: 4px 9px;
+            font-size: 11px;
+            font-weight: 800;
+            background: #243248;
+            color: var(--muted);
+        }
+
+        .status-success { color: var(--green); background: #123524; }
+        .status-failed { color: var(--red); background: #3b1c2a; }
+        .status-warning { color: var(--yellow); background: #3c3015; }
+        .status-blocked { color: #fda4af; background: #3b1c2a; }
+        .status-info { color: var(--cyan); background: #123044; }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .detail {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+        }
+
+        .detail h3 { margin-top: 0; }
+        .detail p { margin-bottom: 0; }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button, .link-button {
+            border: 1px solid var(--border);
+            background: #1c2b41;
+            color: var(--text);
+            padding: 11px 16px;
+            border-radius: 9px;
+            cursor: pointer;
+            font: inherit;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+        }
+
+        button.primary {
+            background: var(--blue);
+            border-color: var(--blue);
+            color: white;
+        }
+
+        button:hover:not(:disabled), .link-button:hover {
+            filter: brightness(1.15);
+        }
+
+        button:disabled {
+            opacity: .4;
+            cursor: not-allowed;
+        }
+
+        button:focus-visible, a:focus-visible {
+            outline: 2px solid var(--cyan);
+            outline-offset: 3px;
+        }
+
+        .event-list {
+            display: grid;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .event-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 13px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            background: #0e1829;
+            text-align: left;
+            width: 100%;
+        }
+
+        .event-item.active {
+            border-color: var(--cyan);
+            background: #123044;
+        }
+
+        .event-index {
+            flex: 0 0 30px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #25364d;
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+        }
+
+        .event-item.active .event-index {
+            background: var(--cyan);
+            color: #071421;
+        }
+
+        .event-copy { flex: 1; min-width: 0; }
+        .event-copy strong { display: block; }
+        .event-copy small { color: var(--muted); }
+
+        .notice {
+            border-left: 3px solid var(--yellow);
+            padding: 12px 16px;
+            background: #292518;
+            color: #fce7a3;
+            border-radius: 0 8px 8px 0;
+            font-size: 13px;
+        }
+
+        .footer-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 22px;
+        }
+
+        @media (max-width: 650px) {
+            .container { margin: 22px auto; }
+            .panel { padding: 17px; }
+            .detail-grid { grid-template-columns: 1fr; }
+            .actors { gap: 7px; }
+            .actor { padding: 9px 5px; min-height: 90px; }
+            .actor-name { font-size: 13px; }
+            .actor-role { font-size: 11px; }
+            .exchange { font-size: 18px; }
+            .controls button { flex: 1 1 40%; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                transition: none !important;
+                scroll-behavior: auto !important;
+            }
+        }
